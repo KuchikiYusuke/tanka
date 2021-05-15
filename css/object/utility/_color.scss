@@ -1,0 +1,45 @@
+.u-color-white {
+    color: $palette-white;
+}
+
+.u-color-copy {
+    color: $palette-white;
+}
+
+.u-color-copy.open {
+    color: $palette-black;
+}
+
+.u-color-menu {
+    color: $palette-white;
+    @include sp {
+        color: $palette-black;
+    }
+}
+
+.u-color-black {
+    color: $palette-black;
+}
+
+.u-b-color-white {
+    background-color: $palette-white;
+}
+
+.u-b-color-about {
+    background-color: $palette-gray;
+    @include sp {
+        background-color: $palette-white;
+    }
+}
+
+.u-b-color-black {
+    background-color: $palette-light-black;
+}
+
+.u-b-color-dark-brown {
+    background-color: $palette-dark-brown;
+}
+
+.u-b-color-search-screen {
+    background-color: $pallete-search-yellow;
+}

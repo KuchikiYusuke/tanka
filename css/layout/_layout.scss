@@ -1,0 +1,102 @@
+.l-flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.l-flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.l-flex-column-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.l-flex-column-center-center {
+    display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.l-flex-column-left {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.l-flex-row-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.l-flex-row-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.l-flex-row-center-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.l-flex-row-space {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.l-flex-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    @include sp {
+        flex-direction: column;
+    }
+}
+
+.l-flex-about-text {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    @include sp {
+        flex-direction: column;
+    }
+}
+
+.l-flex-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    @include sp {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.l-flex-blog {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    @include sp {
+        flex-wrap:wrap;
+    }
+}
+
+.l-flex-access {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    @include sp {
+        flex-direction: column;
+        align-items: left;
+    }
+}
+

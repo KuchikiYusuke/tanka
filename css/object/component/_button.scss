@@ -1,0 +1,79 @@
+.c-cross-btn {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    margin-left: auto;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.c-cross-45, .c-cross-315 {
+    position: absolute;
+    left: 50%;
+    width: 3px;
+    height: 25px;
+}
+
+.c-cross-45 {
+    transform: rotate(45deg);
+}
+
+.c-cross-315 {
+    transform: rotate(315deg);
+}
+
+.c-arrow {
+    position: relative;
+    margin-top: 15px;
+}
+
+.c-arrow-45, .c-arrow-315 {
+    position: absolute;
+    width: 3px;
+    height: 20px;
+    top: 26px;
+}
+
+.c-arrow-45 {
+    transform: rotate(45deg);
+    left: 6px;
+}
+
+.c-arrow-315 {
+    transform: rotate(315deg);
+    left: -6px;
+}
+
+.c-arrow-straight {
+    width: 3px;
+    height: 40px;
+}
+
+.c-search-btn {
+    width: 30px;
+    height: auto;
+    position: fixed;
+    top: 15px;
+    left: 30px;
+    z-index: +2;
+    color: white;
+    cursor: pointer;
+}
+
+.c-genre-choice-btn {
+    width: 166px;
+    height: 47px;
+    border-radius: 5px;
+    color: $palette-white;
+    border: solid 1px $palette-white;
+    cursor: pointer;
+    &.exe {
+        color: $palette-black;
+        background-color: $palette-white;
+    }
+}
+
+.c-search-exe-btn {
+    margin-top: auto;
+    cursor: pointer;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf8">
+        <link rel="stylesheet" href="css/style.css">
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+    </head>
+    <body>
+      <header class="l-header">
+        <img class="c-search-btn" src="img/icon/search.svg">
+        <div class="p-search-screen u-b-color-search-screen l-flex-column-center">
+          <div class="c-cross-btn">
+            <div class="c-cross-45 u-b-color-white"></div>
+            <div class="c-cross-315 u-b-color-white"></div>
+          </div>
+          <h2 class="c-search-title u-color-white c-yu-36-regular-text">短歌</h2>
+          <ul class="p-genre-btn-series l-flex-row-space">
+            <li class="c-genre-choice-btn writer l-flex-column-center-center exe"><p class="c-yu-16-regular-text">歌い手から絞る</p></li>
+            <li class="c-genre-choice-btn word l-flex-column-center-center"><p class="c-yu-16-regular-text">キーワードから絞る</p></li>
+          </ul>
+          <div class="p-search-series writer l-flex-column-center exe">
+            <h3 class="c-writer-search-title u-color-white c-yu-24-regular-text">歌い手</h3>
+            <ul class="p-writer-series l-flex-row-center">
+              <li class="c-writer"><span class="c-yu-16-regular-text">芥川龍之介</span></li>
+              <li class="c-writer"><span class="c-yu-16-regular-text">尾崎放哉</span></li>
+              <li class="c-writer"><span class="c-yu-16-regular-text">折口信夫</span></li>
+              <li class="c-writer"><span class="c-yu-16-regular-text">岸田國士</span></li>
+              <li class="c-writer"><span class="c-yu-16-regular-text">北原白秋</span></li>
+            </ul>  
+          </div>
+          <div class="p-search-series word l-flex-column-center">
+            <h3 class="c-word-search-title u-color-white c-yu-24-regular-text">キーワード</h3>
+            <div class="c-search-form u-b-color-white l-flex-row-center">
+              <input class="c-input u-b-color-white  c-yu-16-regular-text">
+              <img class="c-search-icon" src="img/icon/search_black.svg">
+            </div>
+            <div class="p-word-area"></div>
+          </div>
+          <div class="c-search-exe-btn l-flex-column-center">
+            <p class="c-search-exe-text u-color-white c-yu-24-regular-text">短歌へ</p>
+            <div class="c-arrow">
+              <div class="c-arrow-straight u-b-color-white"></div>
+              <div class="c-arrow-45 u-b-color-white"></div>
+              <div class="c-arrow-315 u-b-color-white"></div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <mainvisual class="l-mainvisual">
+        <div class="c-seat u-b-color-black">
+          <h1 class="c-title u-color-white c-yu-26-regular-text">一晩中短歌に浸れるサイト</h1> 
+        </div>
+      </mainvisual>
+      <main class="l-main">
+        <section class="p-contents-series">
+        </section>
+        <section class="p-display-stage u-b-color-black">
+          <div class="p-top-display-stage l-flex-column">
+            <div class="p-top-display-area"></div>
+            <div class="p-top-fadeout-area"></div>
+          </div>
+          <div class="p-tanka-and-img-dispaly l-flex-row">
+            <div class="p-tanka-display-stage-series l-flex-column">
+            </div>
+            <div class="p-img-display-stage-series l-flex-column" id="contents">
+            </div>  
+          </div>
+        </section>  
+      </main>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+      <script src="js/my-jquery.js"></script>        
+    </body>
+</html>

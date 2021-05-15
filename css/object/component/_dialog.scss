@@ -1,0 +1,90 @@
+.c-yu-36-regular-text {
+	@include normal-letter(36, 400, 0, 58);
+}
+
+.c-yu-16-regular-text {
+	@include normal-letter(16, 400, 0, 26);
+}
+
+.c-yu-24-regular-text {
+	@include normal-letter(24, 400, 0, 39);
+}
+
+.c-yu-26-regular-text {
+	@include normal-letter(26, 400, 0, 42);
+}
+
+.c-search-title {
+	margin-top: 20px;
+}
+
+.c-writer {
+	display: inline-block;
+	margin-left: 5px;
+	padding-left: 4px;
+	padding-right: 4px;
+	cursor: pointer;
+	color: $palette-white;
+	transition: all $writer-transition-speed;
+	&:first-of-type {
+		margin-left: 0px;
+	}
+	&.search {
+		color: $palette-black;
+		background-color: $palette-white;
+		border-radius: 30px;
+	}
+}
+
+.c-title {
+	margin-top: 320px;
+	text-align: center;
+}
+
+// 文字の設定
+.c-tanka {
+	font-size: 16px;
+	font-weight: bold;
+	position: fixed;
+	top: 30%;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: +1;
+	writing-mode: vertical-rl;
+}
+.none {
+	z-index: -1;
+	display: none;
+}
+.c-tanka-char {
+	font-family: YuGothic, "游ゴシック体", "Yu Gothic", "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	font-size: 16px;
+	letter-spacing: .025em;
+	line-height: 1.8;
+}
+
+.c-sentence {
+	display: block;
+}
+
+.c-first-sentence {
+	transform: rotate(0deg);
+	// transform: translateX(10vw);
+}
+
+.c-second-sentence {
+	transform: rotate(0deg);
+}
+
+.c-third-sentence {
+	transform: rotate(0deg);
+}
+
+.c-forth-sentence {
+	transform: rotate(0deg);
+}
+
+.c-fifth-sentence {
+	transform: rotate(0deg);
+}
+

@@ -1,0 +1,94 @@
+// 色設定
+$palette-white: #FFFFFF;
+$palette-gray: #F2F2F2;
+$palette-light-gray: #707070;
+$palette-brown: #A38787;
+$palette-dark-brown: #6F6565;
+$palette-light-black: #0A0A0A;
+$palette-black: #000000;
+
+$pallete-search-yellow: rgba(136, 104, 0, 0.8);
+
+// サイズ設定
+// レスポンシブ基準
+$sp-responsive: 599;  // スマホ
+$tab-responsive: 1140; // タブレット
+
+//高さ設定
+//トップ
+$top-display-height: 500;
+$top-fadeout-height: 500;
+
+//短歌
+$tanka-no-display-height-1: 750;
+$tanka-fadein-height: 1000;
+$tanka-display-height: 1000;
+$tanka-fadeout-height: 500;
+$tanka-no-display-height-2: 500;
+
+
+
+//画像
+$img-no-display-height: 250;
+$img-fadein-height: 500;
+$img-display-height: 2500;
+$img-fadeout-height: 500;
+
+$imgNext-no-display-height: 0;
+$imgNext-fadein-height: 1000;
+$imgNext-display-height: 2250;
+
+// 各基準値
+$sp-standard: 375; // スマホサイズの基準値
+$tab-standard: 1280; // スマホサイズの基準値
+
+// レスポンシブサイズ設定
+@mixin tab {
+    @media (max-width: ($tab-responsive * 1px)) {
+        @content;
+    }
+}
+
+@mixin sp {
+    @media (max-width: ($sp-responsive * 1px)) {
+        @content;
+    }
+}
+
+// 文字設定
+@mixin normal-letter($size, $thickness, $space, $height) {
+    font-family: YuMincho, 'Yu Mincho', serif;
+    font-size: $size * 1px;
+    font-weight: $thickness;
+    letter-spacing: $space / 1000 * 1em;
+    line-height: $height / $size;
+}
+
+// @mixin normal-letter-vw($size, $thickness, $space) {
+//     font-family: "Yu Gothic", "Yu Gothic Medium", "游ゴシック Medium", "YuGothic", "游ゴシック体", "ヒラギノ角ゴ Pro W3", "メイリオ", sans-serif;
+//     font-size: $size * 1vw;
+//     font-weight: $thickness;
+//     letter-spacing: $space / 1000 * 1em;
+// }
+
+// @mixin title-letter($size, $thickness, $space) {
+//     font-family: 'Montserrat', sans-serif;
+//     font-size: $size * 1px;
+//     font-weight: $thickness;
+//     letter-spacing: $space / 1000 * 1em;
+// }
+
+// @mixin title-letter-vw($size, $thickness, $space) {
+//     font-family: 'Montserrat', sans-serif;
+//     font-size: $size * 1vw;
+//     font-weight: $thickness;
+//     letter-spacing: $space / 1000 * 1em;
+// }
+
+// 検索画面遷移スピード
+$search-screen-transition-speed: 0.5s;
+$writer-transition-speed: 0.5s;
+
+body {
+	margin: 0;
+}
