@@ -89,16 +89,14 @@ $(function(){
         return chosenArray;
     }
 
-    // // 検索実行
-    // const searchExe = function() {
-    //     let word = searchWordExe();
-    //     let chosenArray = searchWriterExe();
-    //     console.log(word);
-    //     console.log(chosenArray);
-    // }
-
-    // searchExeBtn.onclick = searchExe;
-
+    function scrollToAnker(hash) {
+        var adjust = -100;
+        var time = 500;
+        let target = $(hash);
+        let position = target.offset().top + adjust;
+        $('body,html').stop().animate({scrollTop:position}, time, 'swing');
+    }
+    
     /* エラー文字列の生成 */
     function errorHandler(args) {
         var error;
@@ -120,33 +118,13 @@ $(function(){
         return error;
     }
 
-    // Ajax通信を開始する
-    // $.ajax({
-        // url: 'js/sample.php', 
-        // type: 'post', // getかpostを指定(デフォルトは前者)
-        // dataType: 'json', // 「json」を指定するとresponseがJSONとしてパースされたオブジェクトになる
-        // data: { // 送信データを指定(getの場合は自動的にurlの後ろにクエリとして付加される)
-            // word: "深紫",
-        // },
-    // })
-    // ・ステータスコードは正常で、dataTypeで定義したようにパース出来たとき
-    // .done(function (data) {
-    //     console.log("成功");
-    //     console.log(data);
-    //     displayData = data;
-    // })
-    // ・サーバからステータスコード400以上が返ってきたとき
-    // ・ステータスコードは正常だが、dataTypeで定義したようにパース出来なかったとき
-    // ・通信に失敗したとき
-    // .fail(function () {
-    //     console.log("失敗");
-    //     console.log(errorHandler(arguments));
-    // });
-    
-
     $(".c-search-exe-btn").click(function () {
         let word = searchWordExe();
         let writerArray = searchWriterExe();
+
+        if (document.getElementById("display") != null) {
+            document.getElementById("display").removeAttribute("id");
+        }
         // Ajax通信を開始する
         $.ajax({
             url: 'php/search.php', 
@@ -161,9 +139,20 @@ $(function(){
         })
         // ・ステータスコードは正常で、dataTypeで定義したようにパース出来たとき
         .done(function (data) {
+            $(".p-search-screen").removeClass("exe");
             console.log("成功");
             console.log(data);
             displayData = data;
+            // 短歌表示エリアの一番下に検索した中で最初の短歌、画像を追加する
+            loadContent();
+            // 一番下の短歌表示エリアまで飛ぶ
+            let tankaDisplayArray = Array.from(document.getElementsByClassName("p-tanka-display-area"));
+            let index = tankaDisplayArray.length - 1;
+            console.log(index);
+            tankaDisplayArray[index].id = "display";
+            var urlHash = location.hash;
+            scrollToAnker(urlHash);
+            
         })
         // ・サーバからステータスコード400以上が返ってきたとき
         // ・ステータスコードは正常だが、dataTypeで定義したようにパース出来なかったとき
@@ -232,16 +221,16 @@ $(function(){
     const imgDisplayStage = $(".p-img-display-stage-series")[0];
     const tankaDisplayStage = $(".p-tanka-display-stage-series")[0];
 
-    
     const infiniteScrollObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if ( ! entry.isIntersecting ) return;
 
-            infiniteScrollObserver.unobserve(entry.target);
+            console.log(entry);
             loadContent();
-
         });
     });
+
+    infiniteScrollObserver.observe($(".l-footer")[0]);
 
     const loadContent = async () => {
         let firstSentence;
@@ -314,13 +303,7 @@ $(function(){
 
         scaleArray.push(getscale());
         sentenceArray.push(getSentence());
-
-        infiniteScrollObserver.observe(imgDisplayStage.lastElementChild);
     };
-
-
-    loadContent();
-
 
     // zip関数作成
     const zip_2 = (
