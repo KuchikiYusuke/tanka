@@ -1,6 +1,16 @@
 'use strict'
 
 $(function(){
+
+    // フォントインストール
+    (function(d) {
+        var config = {
+          kitId: 'xwl6kfn',
+          scriptTimeout: 3000,
+          async: true
+        },
+        h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+    })(document);
     
     const writerChoiceButton = $(".c-genre-choice-btn.writer")[0];
     const wordChoiceButton = $(".c-genre-choice-btn.word")[0];
@@ -238,7 +248,9 @@ $(function(){
         let secondSentence;
         let thirdSentence;
         let forthSentence;
-        let fifthSentence;    
+        let fifthSentence;
+        let writer;
+        let works;
         if(displayData.length) {
             let index = Math.floor(Math.random() * displayData.length);
             firstSentence = displayData[index].first_sentence;
@@ -252,21 +264,24 @@ $(function(){
             thirdSentence = "天鵞絨を";
             forthSentence = "なづる心地か";
             fifthSentence = "春の暮れゆく";
+            writer = "芥川龍之介";
+            works = "芥川龍之介作品集";
         }
         contents.insertAdjacentHTML(
             'beforeend',
             '<div class="p-tanka-and-img next">' + 
             '<img class="c-tanka-img none" src="https://s3.ap-northeast-1.amazonaws.com/tanka-bucket/album1/_10.jpg">' + 
-            '<div class="c-tanka none u-color-white l-flex-column-center-center">' + 
-            '<p class="c-tanka-char u-margin-tanka l-flex-row">' + 
+            '<div class="c-tanka none u-color-white l-flex-column">' + 
+            '<p class="u-kinuta-22-regular-text u-margin-tanka l-flex-row">' + 
             `<span class="c-sentence c-first-sentence">${firstSentence}</span>` + 
             `<span class="c-sentence c-second-sentence">${secondSentence}</span>` + 
             `<span class="c-sentence c-third-sentence">${thirdSentence}</span>` + 
             '</p>' + 
-            '<p class="c-tanka-char u-margin-tanka l-flex-row">' + 
+            '<p class="u-kinuta-22-regular-text u-margin-tanka l-flex-row c-meta-info-marker">' + 
             `<span class="c-sentence c-forth-sentence">${forthSentence}</span>` + 
             `<span class="c-sentence c-fifth-sentence">${fifthSentence}</span>` + 
             '</p>' + 
+            `<span class="c-meta-info u-yu-16-regular-text u-color-white">${writer}『${works}』</span>` + 
             '</div>' + 
             '</div>'
         );

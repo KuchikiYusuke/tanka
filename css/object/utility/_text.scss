@@ -1,0 +1,20 @@
+.u-yu-36-regular-text {
+	@include normal-letter(36, 400, 0, 58);
+}
+
+.u-yu-16-regular-text {
+	@include normal-letter(16, 400, 0, 26);
+}
+
+.u-yu-24-regular-text {
+	@include normal-letter(24, 400, 0, 39);
+}
+
+.u-yu-26-regular-text {
+	@include normal-letter(26, 400, 0, 42);
+}
+
+.u-kinuta-22-regular-text {
+	@include kinuta-letter(22, 400, 450, 0);
+}
+

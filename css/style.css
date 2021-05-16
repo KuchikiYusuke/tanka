@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /*! destyle.css v1.0.15 | MIT License | https://github.com/nicolas-cusan/destyle.css */
 /* Reset box-model */
 /* ============================================ */
@@ -784,14 +783,17 @@ body {
 }
 
 .c-search-btn {
-  width: 30px;
-  height: auto;
   position: fixed;
   top: 15px;
   left: 30px;
   z-index: +2;
   color: white;
   cursor: pointer;
+}
+
+.c-search-btn-img {
+  width: 30px;
+  height: auto;
 }
 
 .c-genre-choice-btn {
@@ -809,40 +811,19 @@ body {
 }
 
 .c-search-exe-btn {
-  margin-top: auto;
-  cursor: pointer;
+  position: fixed;
+  top: calc(400 * 1px - 100vh);
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
-.c-yu-36-regular-text {
-  font-family: YuMincho, 'Yu Mincho', serif;
-  font-size: 36px;
-  font-weight: 400;
-  letter-spacing: 0em;
-  line-height: 1.61111;
+.exe .c-search-exe-btn {
+  top: 400px;
 }
 
-.c-yu-16-regular-text {
-  font-family: YuMincho, 'Yu Mincho', serif;
-  font-size: 16px;
-  font-weight: 400;
-  letter-spacing: 0em;
-  line-height: 1.625;
-}
-
-.c-yu-24-regular-text {
-  font-family: YuMincho, 'Yu Mincho', serif;
-  font-size: 24px;
-  font-weight: 400;
-  letter-spacing: 0em;
-  line-height: 1.625;
-}
-
-.c-yu-26-regular-text {
-  font-family: YuMincho, 'Yu Mincho', serif;
-  font-size: 26px;
-  font-weight: 400;
-  letter-spacing: 0em;
-  line-height: 1.61538;
+.c-search-exe-btn-img {
+  width: 50px;
+  height: auto;
 }
 
 .c-search-title {
@@ -879,7 +860,6 @@ body {
   font-size: 16px;
   font-weight: bold;
   position: fixed;
-  top: 30%;
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -887,18 +867,13 @@ body {
   -webkit-writing-mode: vertical-rl;
       -ms-writing-mode: tb-rl;
           writing-mode: vertical-rl;
+  height: 100vh;
+  padding-top: 10%;
 }
 
 .none {
   z-index: -1;
   display: none;
-}
-
-.c-tanka-char {
-  font-family: YuGothic, "游ゴシック体", "Yu Gothic", "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-  font-size: 16px;
-  letter-spacing: .025em;
-  line-height: 1.8;
 }
 
 .c-sentence {
@@ -930,14 +905,28 @@ body {
           transform: rotate(0deg);
 }
 
-.c-search-form {
-  width: 339px;
-  height: 31px;
-  margin-top: 6px;
+.c-meta-info-marker {
+  position: relative;
+}
+
+.c-meta-info {
+  -webkit-writing-mode: vertical-rl;
+      -ms-writing-mode: tb-rl;
+          writing-mode: vertical-rl;
+  position: absolute;
+  left: -50px;
+  bottom: 20px;
+}
+
+@media (max-width: 1140px) {
+  .c-meta-info {
+    left: -50px;
+  }
 }
 
 .c-input {
-  width: 92%;
+  width: 339px;
+  height: 31px;
   padding-left: 7px;
   display: inline-block;
 }
@@ -1088,7 +1077,53 @@ body {
 }
 
 .u-margin-tanka:not(:nth-child(2)) {
-  margin-left: 30px;
+  margin-left: 70px;
+}
+
+@media (max-width: 599px) {
+  .u-margin-tanka:not(:nth-child(2)) {
+    margin-left: 11.68614vw;
+  }
+}
+
+.u-yu-36-regular-text {
+  font-family: YuMincho, 'Yu Mincho', serif;
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 1.61111;
+}
+
+.u-yu-16-regular-text {
+  font-family: YuMincho, 'Yu Mincho', serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 1.625;
+}
+
+.u-yu-24-regular-text {
+  font-family: YuMincho, 'Yu Mincho', serif;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 1.625;
+}
+
+.u-yu-26-regular-text {
+  font-family: YuMincho, 'Yu Mincho', serif;
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 1.61538;
+}
+
+.u-kinuta-22-regular-text {
+  font-family: kinuta-mincho-stdn,sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.45em;
+  line-height: 0;
 }
 
 .u-color-white {

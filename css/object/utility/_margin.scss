@@ -1,3 +1,7 @@
 .u-margin-tanka:not(:nth-child(2)) {
-    margin-left: 30px;
+    $margin-left: 70;
+    margin-left: $margin-left * 1px;
+    @include sp {
+        margin-left: $margin-left / $sp-responsive * 100vw;
+    }
 }

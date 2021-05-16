@@ -50,14 +50,17 @@
 }
 
 .c-search-btn {
-    width: 30px;
-    height: auto;
     position: fixed;
     top: 15px;
     left: 30px;
     z-index: +2;
     color: white;
     cursor: pointer;
+}
+
+.c-search-btn-img {
+    width: 30px;
+    height: auto;
 }
 
 .c-genre-choice-btn {
@@ -74,6 +77,16 @@
 }
 
 .c-search-exe-btn {
-    margin-top: auto;
-    cursor: pointer;
+    $position-top: 400;
+    position: fixed;
+    top: calc(#{$position-top} * 1px - 100vh);
+    transition: all $search-screen-transition-speed;
+    .exe & {
+        top: $position-top * 1px;
+    }
+}
+
+.c-search-exe-btn-img {
+    width: 50px;
+    height: auto;
 }
