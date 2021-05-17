@@ -18,3 +18,10 @@
 	@include kinuta-letter(22, 400, 450, 0);
 }
 
+.u-search-word-area-text {
+	@include normal-letter(16, 400, 0, 26);
+	@include sp {
+		@include normal-letter(12, 400, 0, 26);
+	}
+}
+

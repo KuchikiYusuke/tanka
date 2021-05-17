@@ -177,7 +177,7 @@ $(function(){
     // });
 
     function makeInsertHTML(writerArray, word) {
-        let insertHTML = '<table class="p-table u-color-white u-yu-16-regular-text">';
+        let insertHTML = '<table class="p-table u-color-white u-search-word-area-text">';
         let type;
         for (let i=0;i<writerArray.length;i++) {
             if (i == 0) {
@@ -186,7 +186,6 @@ $(function(){
             else {
                 type = "";
             }
-            console.log(type);
             insertHTML += '<tr>' +
             `<td class="c-row">${type}</td>` +
             `<td class="c-row right">${writerArray[i]}</td>` +
