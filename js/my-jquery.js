@@ -110,72 +110,7 @@ $(function(){
         $('body,html').stop().animate({scrollTop:position}, time, 'swing');
     }
     
-    /* エラー文字列の生成 */
-    function errorHandler(args) {
-        var error;
-        // errorThrownはHTTP通信に成功したときだけ空文字列以外の値が定義される
-        if (args[2]) {
-            try {
-                // JSONとしてパースが成功し、且つ {"error":"..."} という構造であったとき
-                // (undefinedが代入されるのを防ぐためにtoStringメソッドを使用)
-                error = JSON.parse(args[0].responseText).error.toString();
-            } catch (e) {
-                // パースに失敗した、もしくは期待する構造でなかったとき
-                // (PHP側にエラーがあったときにもデバッグしやすいようにレスポンスをテキストとして返す)
-                error = 'parsererror(' + args[2] + '): ' + args[0].responseText;
-            }
-        } else {
-            // 通信に失敗したとき
-            error = args[1] + '(HTTP request failed)';
-        }
-        return error;
-    }
-
-    // $(".c-search-exe-btn").click(function () {
-    //     let word = searchWordExe();
-    //     let writerArray = searchWriterExe();
-
-    //     if (document.getElementById("display") != null) {
-    //         document.getElementById("display").removeAttribute("id");
-    //     }
-    //     // Ajax通信を開始する
-    //     $.ajax({
-    //         url: 'php/search.php', 
-    //         type: 'post', // getかpostを指定(デフォルトは前者)
-    //         dataType: 'json', // 「json」を指定するとresponseがJSONとしてパースされたオブジェクトになる
-    //         data: { // 送信データを指定(getの場合は自動的にurlの後ろにクエリとして付加される)
-    //             // word: "深紫",
-    //             // word: "",
-    //             word: word,
-    //             writers: writerArray,
-    //         },
-    //     })
-    //     // ・ステータスコードは正常で、dataTypeで定義したようにパース出来たとき
-    //     .done(function (data) {
-    //         $(".p-search-screen").removeClass("exe");
-    //         console.log("成功");
-    //         console.log(data);
-    //         displayData = data;
-    //         // 短歌表示エリアの一番下に検索した中で最初の短歌、画像を追加する
-    //         loadContent();
-    //         // 一番下の短歌表示エリアまで飛ぶ
-    //         let tankaDisplayArray = Array.from(document.getElementsByClassName("p-tanka-display-area"));
-    //         let index = tankaDisplayArray.length - 1;
-    //         console.log(index);
-    //         tankaDisplayArray[index].id = "display";
-    //         var urlHash = location.hash;
-    //         scrollToAnker(urlHash);
-            
-    //     })
-    //     // ・サーバからステータスコード400以上が返ってきたとき
-    //     // ・ステータスコードは正常だが、dataTypeで定義したようにパース出来なかったとき
-    //     // ・通信に失敗したとき
-    //     .fail(function () {
-    //         console.log("失敗");
-    //         console.log(errorHandler(arguments));
-    //     });
-    // });
-
+    // 右の検索ワードエリア生成
     function makeInsertHTML(writerArray, word) {
         let insertHTML = '<table class="p-table u-color-white u-search-word-area-text">';
         let type;
@@ -200,12 +135,73 @@ $(function(){
         return insertHTML;
     }
 
+
+    /* エラー文字列の生成 */
+    function errorHandler(args) {
+        var error;
+        // errorThrownはHTTP通信に成功したときだけ空文字列以外の値が定義される
+        if (args[2]) {
+            try {
+                // JSONとしてパースが成功し、且つ {"error":"..."} という構造であったとき
+                // (undefinedが代入されるのを防ぐためにtoStringメソッドを使用)
+                error = JSON.parse(args[0].responseText).error.toString();
+            } catch (e) {
+                // パースに失敗した、もしくは期待する構造でなかったとき
+                // (PHP側にエラーがあったときにもデバッグしやすいようにレスポンスをテキストとして返す)
+                error = 'parsererror(' + args[2] + '): ' + args[0].responseText;
+            }
+        } else {
+            // 通信に失敗したとき
+            error = args[1] + '(HTTP request failed)';
+        }
+        return error;
+    }
+
+    // 検索実行ボタン押下アクション
     $(".c-search-exe-btn").click(function () {
-        // 既存のテーブルの内容を削除
-        $(".p-table").remove();
-        
         let word = searchWordExe();
         let writerArray = searchWriterExe();
+
+        if (document.getElementById("display") != null) {
+            document.getElementById("display").removeAttribute("id");
+        }
+        // Ajax通信を開始する
+        $.ajax({
+            url: 'php/search.php', 
+            type: 'post', // getかpostを指定(デフォルトは前者)
+            dataType: 'json', // 「json」を指定するとresponseがJSONとしてパースされたオブジェクトになる
+            data: { // 送信データを指定(getの場合は自動的にurlの後ろにクエリとして付加される)
+                word: word,
+                writers: writerArray,
+            },
+        })
+        // ・ステータスコードは正常で、dataTypeで定義したようにパース出来たとき
+        .done(function (data) {
+            $(".p-search-screen").removeClass("exe");
+            console.log("成功");
+            console.log(data);
+            displayData = data;
+            // 短歌表示エリアの一番下に検索した中で最初の短歌、画像を追加する
+            loadContent();
+            // 一番下の短歌表示エリアまで飛ぶ
+            let tankaDisplayArray = Array.from(document.getElementsByClassName("p-tanka-display-area"));
+            let index = tankaDisplayArray.length - 1;
+            console.log(index);
+            tankaDisplayArray[index].id = "display";
+            var urlHash = location.hash;
+            scrollToAnker(urlHash);
+            
+        })
+        // ・サーバからステータスコード400以上が返ってきたとき
+        // ・ステータスコードは正常だが、dataTypeで定義したようにパース出来なかったとき
+        // ・通信に失敗したとき
+        .fail(function () {
+            console.log("失敗");
+            console.log(errorHandler(arguments));
+        });
+
+        // 既存のテーブルの内容を削除
+        $(".p-table").remove();
 
         // p-search-screenを画面外に送る
         $(".p-search-screen").removeClass("exe");
