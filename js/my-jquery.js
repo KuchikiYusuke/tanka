@@ -27,6 +27,35 @@ $(function(){
 
     var displayData = [];
 
+    // 検索ワード表示画面の位置を決定する
+    const decideHiddenWordPosition = function() {
+        let rightPostion = -1 * $(".p-table").width();
+        $(".p-search-word-area.hidden").css('right', `${rightPostion}px`);
+    }
+
+    // 検索ワード表示画面の位置を決定する
+    const decideDisplayWordPosition = function() {
+        let rightPostion = 10;
+        $(".p-search-word-area").css('right', `${rightPostion}px`);
+    }
+
+    decideHiddenWordPosition();
+
+    // 検索ワードエリア表示非表示
+    var $wordArea   = $('.p-search-word-area');
+    var $btn   = $('.c-side-arrow');
+    var hidden   = 'hidden'; // class
+    $btn.on( 'click', function() {
+      if ( ! $wordArea.hasClass( hidden ) ) {
+        $wordArea.addClass( hidden );
+        decideHiddenWordPosition();
+      } else {
+        $wordArea.removeClass( hidden );
+        decideDisplayWordPosition();
+      }
+    });
+
+
     // 歌い手から絞る or キーワードから絞る を選ぶ
     const writerChoiceButtonClick = function() {
         if (!this.classList.contains("exe")){
@@ -118,50 +147,59 @@ $(function(){
         return error;
     }
 
+    // $(".c-search-exe-btn").click(function () {
+    //     let word = searchWordExe();
+    //     let writerArray = searchWriterExe();
+
+    //     if (document.getElementById("display") != null) {
+    //         document.getElementById("display").removeAttribute("id");
+    //     }
+    //     // Ajax通信を開始する
+    //     $.ajax({
+    //         url: 'php/search.php', 
+    //         type: 'post', // getかpostを指定(デフォルトは前者)
+    //         dataType: 'json', // 「json」を指定するとresponseがJSONとしてパースされたオブジェクトになる
+    //         data: { // 送信データを指定(getの場合は自動的にurlの後ろにクエリとして付加される)
+    //             // word: "深紫",
+    //             // word: "",
+    //             word: word,
+    //             writers: writerArray,
+    //         },
+    //     })
+    //     // ・ステータスコードは正常で、dataTypeで定義したようにパース出来たとき
+    //     .done(function (data) {
+    //         $(".p-search-screen").removeClass("exe");
+    //         console.log("成功");
+    //         console.log(data);
+    //         displayData = data;
+    //         // 短歌表示エリアの一番下に検索した中で最初の短歌、画像を追加する
+    //         loadContent();
+    //         // 一番下の短歌表示エリアまで飛ぶ
+    //         let tankaDisplayArray = Array.from(document.getElementsByClassName("p-tanka-display-area"));
+    //         let index = tankaDisplayArray.length - 1;
+    //         console.log(index);
+    //         tankaDisplayArray[index].id = "display";
+    //         var urlHash = location.hash;
+    //         scrollToAnker(urlHash);
+            
+    //     })
+    //     // ・サーバからステータスコード400以上が返ってきたとき
+    //     // ・ステータスコードは正常だが、dataTypeで定義したようにパース出来なかったとき
+    //     // ・通信に失敗したとき
+    //     .fail(function () {
+    //         console.log("失敗");
+    //         console.log(errorHandler(arguments));
+    //     });
+    // });
+
     $(".c-search-exe-btn").click(function () {
         let word = searchWordExe();
         let writerArray = searchWriterExe();
 
-        if (document.getElementById("display") != null) {
-            document.getElementById("display").removeAttribute("id");
-        }
-        // Ajax通信を開始する
-        $.ajax({
-            url: 'php/search.php', 
-            type: 'post', // getかpostを指定(デフォルトは前者)
-            dataType: 'json', // 「json」を指定するとresponseがJSONとしてパースされたオブジェクトになる
-            data: { // 送信データを指定(getの場合は自動的にurlの後ろにクエリとして付加される)
-                // word: "深紫",
-                // word: "",
-                word: word,
-                writers: writerArray,
-            },
-        })
-        // ・ステータスコードは正常で、dataTypeで定義したようにパース出来たとき
-        .done(function (data) {
-            $(".p-search-screen").removeClass("exe");
-            console.log("成功");
-            console.log(data);
-            displayData = data;
-            // 短歌表示エリアの一番下に検索した中で最初の短歌、画像を追加する
-            loadContent();
-            // 一番下の短歌表示エリアまで飛ぶ
-            let tankaDisplayArray = Array.from(document.getElementsByClassName("p-tanka-display-area"));
-            let index = tankaDisplayArray.length - 1;
-            console.log(index);
-            tankaDisplayArray[index].id = "display";
-            var urlHash = location.hash;
-            scrollToAnker(urlHash);
-            
-        })
-        // ・サーバからステータスコード400以上が返ってきたとき
-        // ・ステータスコードは正常だが、dataTypeで定義したようにパース出来なかったとき
-        // ・通信に失敗したとき
-        .fail(function () {
-            console.log("失敗");
-            console.log(errorHandler(arguments));
-        });
+        $(".p-search-screen").removeClass("exe");
+
     });
+
 
     //設定
     const translateXRateArray = [0.01, 0.01, 0.01, -0.01, -0.01,]
@@ -225,7 +263,6 @@ $(function(){
         entries.forEach(entry => {
             if ( ! entry.isIntersecting ) return;
 
-            console.log(entry);
             loadContent();
         });
     });

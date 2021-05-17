@@ -2,6 +2,15 @@
 	margin-top: 20px;
 }
 
+.c-row {
+	&.not-top {
+		padding-top: 5px;
+	}
+	&.right {
+		padding-left: 8px;
+	}
+}
+
 .c-writer {
 	display: inline-block;
 	margin-left: 5px;
@@ -21,7 +30,7 @@
 }
 
 .c-title {
-	margin-top: 320px;
+	margin-top: 300 / 722.4 * 100vh;
 	text-align: center;
 }
 

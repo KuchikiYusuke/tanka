@@ -22,33 +22,6 @@
     transform: rotate(315deg);
 }
 
-.c-arrow {
-    position: relative;
-    margin-top: 15px;
-}
-
-.c-arrow-45, .c-arrow-315 {
-    position: absolute;
-    width: 3px;
-    height: 20px;
-    top: 26px;
-}
-
-.c-arrow-45 {
-    transform: rotate(45deg);
-    left: 6px;
-}
-
-.c-arrow-315 {
-    transform: rotate(315deg);
-    left: -6px;
-}
-
-.c-arrow-straight {
-    width: 3px;
-    height: 40px;
-}
-
 .c-search-btn {
     position: fixed;
     top: 15px;
