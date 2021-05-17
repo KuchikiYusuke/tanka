@@ -63,36 +63,31 @@
 }
 
 .c-side-arrow {
-    position: relative;
+    position: fixed;
     display: inline-block;
-    top: 10px;
+    top: 30px;
     right: 20px;
     cursor: pointer;
 }
 
 .c-side-arrow-45, .c-side-arrow-315 {
-    position: absolute;
     width: 2px;
     height: 15px;
-    left: 24px;
-    .hidden & {
-        left: 4px;
-    }
 }
 
 .c-side-arrow-45 {
-    top: -12px;
-    transform: rotate(315deg);
-    .hidden & {
-        transform: rotate(45deg);
+    transition: all 0.5s;
+    transform: rotate(45deg) translate(-7px, -12px);
+    .exe & {
+        transform: rotate(315deg) translate(26px, 8px);
     }
 }
 
 .c-side-arrow-315 {
-    top: -2px;
-    transform: rotate(45deg);
-    .hidden & {
-        transform: rotate(315deg);
+    transition: all 0.5s;
+    transform: rotate(315deg) translate(15px, -11px);
+    .exe & {
+        transform: rotate(45deg) translate(4px, -29px);
     }
 }
 

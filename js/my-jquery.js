@@ -27,32 +27,16 @@ $(function(){
 
     var displayData = [];
 
-    // 検索ワード表示画面の位置を決定する
-    const decideHiddenWordPosition = function() {
-        let rightPostion = -1 * $(".p-table").width();
-        $(".p-search-word-area.hidden").css('right', `${rightPostion}px`);
-    }
-
-    // 検索ワード表示画面の位置を決定する
-    const decideDisplayWordPosition = function() {
-        let rightPostion = 10;
-        $(".p-search-word-area").css('right', `${rightPostion}px`);
-    }
-
-    decideHiddenWordPosition();
-
     // 検索ワードエリア表示非表示
     var $wordArea   = $('.p-search-word-area');
     var $btn   = $('.c-side-arrow');
-    var hidden   = 'hidden'; // class
+    var exe   = 'exe'; // class
     $btn.on( 'click', function() {
-      if ( ! $wordArea.hasClass( hidden ) ) {
-        $wordArea.addClass( hidden );
-        decideHiddenWordPosition();
-      } else {
-        $wordArea.removeClass( hidden );
-        decideDisplayWordPosition();
-      }
+        if ( ! $wordArea.hasClass( exe ) ) {
+            $wordArea.addClass( exe );
+        } else {
+            $wordArea.removeClass( exe );
+        }
     });
 
 
@@ -192,12 +176,53 @@ $(function(){
     //     });
     // });
 
+    function makeInsertHTML(writerArray, word) {
+        let insertHTML = '<table class="p-table u-color-white u-yu-16-regular-text">';
+        let type;
+        for (let i=0;i<writerArray.length;i++) {
+            if (i == 0) {
+                type = "歌い手";
+            }
+            else {
+                type = "";
+            }
+            console.log(type);
+            insertHTML += '<tr>' +
+            `<td class="c-row">${type}</td>` +
+            `<td class="c-row right">${writerArray[i]}</td>` +
+            '<tr>';
+        }
+        insertHTML += '<tr>' +
+        '<td class="c-row not-top">キーワード</td>' + 
+        `<td class="c-row not-top right">${word}</td>` + 
+        '<tr>';
+
+        insertHTML += '</table>';
+        return insertHTML;
+    }
+
     $(".c-search-exe-btn").click(function () {
+        // 既存のテーブルの内容を削除
+        $(".p-table").remove();
+        
         let word = searchWordExe();
         let writerArray = searchWriterExe();
 
+        // p-search-screenを画面外に送る
         $(".p-search-screen").removeClass("exe");
 
+        // p-search-screenから検索結果を除く
+        $(".c-writer").removeClass("search");
+        $(".c-input")[0].value = "";
+
+        // テーブルに検索結果を表示
+        let insertHTML = makeInsertHTML(writerArray, word);
+        $wordArea[0].insertAdjacentHTML('beforeend', insertHTML);
+
+        // テーブルを表示
+        if ( ! $wordArea.hasClass( exe ) ) {
+            $wordArea.addClass( exe );
+        }
     });
 
 

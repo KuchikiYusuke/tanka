@@ -5,15 +5,20 @@
 	z-index: +2;
 }
 
+.p-table {
+    transition: all 0.5s;
+    position: fixed;
+    left: 100%;
+    top: 60px;
+    .exe & {
+        transform: translateX(calc(-100% - 10px));
+    }
+}
+
 .p-genre-btn-series {
     width: 396px;
     margin-top: 45px;
     @include sp {
         width: 339px;
     }
-}
-
-.having-img {
-    background-color: red;
-    height: 100px;
 }
