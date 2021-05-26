@@ -1,18 +1,25 @@
 <?php
 $config = parse_ini_file("config.ini", false);
 
-$word=$_POST['word'];
-$writers=$_POST['writers'];
-$word='%'.$word.'%';
 ini_set('display_errors', 1);
 $dbs='mysql:'.'host='.$config['DB_HOST'].';'.'dbname='.$config['DB_NAME'].';charset=utf8';
 $dbh=new PDO($dbs, $config['DB_USER'], $config['DB_PASSWORD']);
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$sql="SELECT * FROM tanka WHERE tanka LIKE :word";
+
+$word=$_POST['word'];
+$writers=$_POST['writers'];
+if (is_null($word)){
+    $word='%'.$word.'%';
+    $sql="SELECT * FROM tanka WHERE tanka LIKE :word";    
+} else {
+    $sql="SELECT * FROM tanka";
+}
 $stmt=$dbh->prepare($sql);
 $dbh=null;
 //実行
-$stmt->bindParam(':word', $word, PDO::PARAM_STR);
+if (is_null($word)){
+    $stmt->bindParam(':word', $word, PDO::PARAM_STR);
+}
 $stmt->execute();
 $all = $stmt->fetchAll();
 

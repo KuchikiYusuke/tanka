@@ -157,14 +157,7 @@ $(function(){
         return error;
     }
 
-    // 検索実行ボタン押下アクション
-    $(".c-search-exe-btn").click(function () {
-        let word = searchWordExe();
-        let writerArray = searchWriterExe();
-
-        if (document.getElementById("display") != null) {
-            document.getElementById("display").removeAttribute("id");
-        }
+    function connect_db(word, writerArray) {
         // Ajax通信を開始する
         $.ajax({
             url: 'php/search.php', 
@@ -182,15 +175,6 @@ $(function(){
             console.log(data);
             displayData = data;
             // 短歌表示エリアの一番下に検索した中で最初の短歌、画像を追加する
-            loadContent();
-            // 一番下の短歌表示エリアまで飛ぶ
-            let tankaDisplayArray = Array.from(document.getElementsByClassName("p-tanka-display-area"));
-            let index = tankaDisplayArray.length - 1;
-            console.log(index);
-            tankaDisplayArray[index].id = "display";
-            var urlHash = location.hash;
-            scrollToAnker(urlHash);
-            
         })
         // ・サーバからステータスコード400以上が返ってきたとき
         // ・ステータスコードは正常だが、dataTypeで定義したようにパース出来なかったとき
@@ -198,7 +182,30 @@ $(function(){
         .fail(function () {
             console.log("失敗");
             console.log(errorHandler(arguments));
-        });
+        });        
+    }
+
+    // 検索実行ボタン押下アクション
+    $(".c-search-exe-btn").click(function () {
+        let word = searchWordExe();
+        let writerArray = searchWriterExe();
+
+        if (document.getElementById("display") != null) {
+            document.getElementById("display").removeAttribute("id");
+        }
+
+        // DBに接続
+        connect_db(word, writerArray);
+        
+        // ページに一番最初の短歌を載せる
+        loadContent();
+
+        // 一番下の短歌表示エリアまで飛ぶ
+        let tankaDisplayArray = Array.from(document.getElementsByClassName("p-tanka-display-area"));
+        let index = tankaDisplayArray.length - 1;
+        console.log(index);
+        tankaDisplayArray[index].id = "display";
+        scrollToAnker("#display");
 
         // 既存のテーブルの内容を削除
         $(".p-table").remove();
@@ -220,6 +227,9 @@ $(function(){
         }
     });
 
+    // 起動時に実行
+    // DBに接続
+    connect_db(null, null);
 
     //設定
     const translateXRateArray = [0.01, 0.01, 0.01, -0.01, -0.01,]
@@ -297,6 +307,7 @@ $(function(){
         let fifthSentence;
         let writer;
         let works;
+        let img;
         if(displayData.length) {
             let index = Math.floor(Math.random() * displayData.length);
             firstSentence = displayData[index].first_sentence;
@@ -304,6 +315,10 @@ $(function(){
             thirdSentence = displayData[index].third_sentence;
             forthSentence = displayData[index].forth_sentence;
             fifthSentence = displayData[index].fifth_sentence;
+            writer = displayData[index].author;
+            works = displayData[index].work;
+            img = displayData[index].img;
+            console.log(img);
         } else {
             firstSentence = "やはらかく";
             secondSentence = "深紫の";
@@ -316,7 +331,8 @@ $(function(){
         contents.insertAdjacentHTML(
             'beforeend',
             '<div class="p-tanka-and-img next">' + 
-            '<img class="c-tanka-img none" src="https://s3.ap-northeast-1.amazonaws.com/tanka-bucket/album1/_10.jpg">' + 
+            // '<img class="c-tanka-img none" src="https://s3.ap-northeast-1.amazonaws.com/tanka-bucket/album1/_10.jpg">' + 
+            `<img class="c-tanka-img none" src="https://s3.ap-northeast-1.amazonaws.com/${img}">` + 
             '<div class="c-tanka none u-color-white l-flex-column">' + 
             '<p class="u-kinuta-22-regular-text u-margin-tanka l-flex-row">' + 
             `<span class="c-sentence c-first-sentence">${firstSentence}</span>` + 
@@ -479,6 +495,8 @@ $(function(){
             }
         )    
     }
+
+    // スクロール時の処理
     $(document).scroll(function(){
         displayTankaAndImage(tankaArray, imgArray, scaleArray, transparentRateArray, sentenceArray);
     });      
