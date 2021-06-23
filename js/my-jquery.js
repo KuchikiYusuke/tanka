@@ -332,7 +332,7 @@ $(function(){
             'beforeend',
             '<div class="p-tanka-and-img next">' + 
             // '<img class="c-tanka-img none" src="https://s3.ap-northeast-1.amazonaws.com/tanka-bucket/album1/_10.jpg">' + 
-            `<img class="c-tanka-img none" src="https://s3.ap-northeast-1.amazonaws.com/${img}">` + 
+            `<img class="c-tanka-img none" src="https://tanka-bucket.s3-ap-northeast-1.amazonaws.com${img}">` + 
             '<div class="c-tanka none u-color-white l-flex-column">' + 
             '<p class="u-kinuta-22-regular-text u-margin-tanka l-flex-row">' + 
             `<span class="c-sentence c-first-sentence">${firstSentence}</span>` + 
