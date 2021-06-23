@@ -12,6 +12,7 @@ $(function(){
         h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
     })(document);
     
+    // スクロール機能
     const writerChoiceButton = $(".c-genre-choice-btn.writer")[0];
     const wordChoiceButton = $(".c-genre-choice-btn.word")[0];
 
@@ -64,10 +65,25 @@ $(function(){
     // 歌い手選択
     const choiceWriter = function() {
         if (!this.classList.contains("search")){
+            $(".c-writer.search").removeClass("search");
             this.classList.add("search");
         } else {
             this.classList.remove("search");
         }
+    }
+    writerArray.forEach(writer => {
+        writer.onclick = choiceWriter;
+    })
+
+    const searchWriterExe = function() {
+        let writer;
+        if ($(".c-writer.search").length) {
+            writer = $(".c-writer.search")[0].innerText;
+        } else {
+            writer = ""
+        }
+
+        return writer;
     }
 
     // キーワード選択
@@ -75,10 +91,6 @@ $(function(){
         let word = $(".c-input")[0].value;
         return word;
     }
-
-    writerArray.forEach(writer => {
-        writer.onclick = choiceWriter;
-    })
 
     // 検索画面表示
     const displaySearchScreen = function() {
@@ -92,16 +104,6 @@ $(function(){
     }
     crossBtn.onclick = hideSearchScreen;
 
-    const searchWriterExe = function() {
-        let chosenArray = [];
-        writerArray.forEach(writer => {
-            if (writer.classList.contains("search")) {
-                chosenArray.push(writer.textContent);
-            }
-        })
-        return chosenArray;
-    }
-
     function scrollToAnker(hash) {
         var adjust = -100;
         var time = 500;
@@ -111,25 +113,16 @@ $(function(){
     }
     
     // 右の検索ワードエリア生成
-    function makeInsertHTML(writerArray, word) {
-        let insertHTML = '<table class="p-table u-color-white u-search-word-area-text">';
-        let type;
-        for (let i=0;i<writerArray.length;i++) {
-            if (i == 0) {
-                type = "歌い手";
-            }
-            else {
-                type = "";
-            }
-            insertHTML += '<tr>' +
-            `<td class="c-row">${type}</td>` +
-            `<td class="c-row right">${writerArray[i]}</td>` +
-            '<tr>';
-        }
-        insertHTML += '<tr>' +
+    function makeInsertHTML(writer, word) {
+        let insertHTML = '<table class="p-table u-color-white u-search-word-area-text">'+
+        '<tr>' +
+        `<td class="c-row">歌い手</td>` +
+        `<td class="c-row right">${writer}</td>` +
+        '</tr>' +
+        '<tr>' +
         '<td class="c-row not-top">キーワード</td>' + 
         `<td class="c-row not-top right">${word}</td>` + 
-        '<tr>';
+        '</tr>';
 
         insertHTML += '</table>';
         return insertHTML;
@@ -157,15 +150,15 @@ $(function(){
         return error;
     }
 
-    function connect_db(word, writerArray) {
+    function connect_db(word, writer) {
         // Ajax通信を開始する
         $.ajax({
             url: 'php/search.php', 
-            type: 'post', // getかpostを指定(デフォルトは前者)
+            type: 'post',
             dataType: 'json', // 「json」を指定するとresponseがJSONとしてパースされたオブジェクトになる
-            data: { // 送信データを指定(getの場合は自動的にurlの後ろにクエリとして付加される)
+            data: {
                 word: word,
-                writers: writerArray,
+                writer: writer,
             },
         })
         // ・ステータスコードは正常で、dataTypeで定義したようにパース出来たとき
@@ -188,14 +181,13 @@ $(function(){
     // 検索実行ボタン押下アクション
     $(".c-search-exe-btn").click(function () {
         let word = searchWordExe();
-        let writerArray = searchWriterExe();
+        let writer = searchWriterExe();
 
         if (document.getElementById("display") != null) {
             document.getElementById("display").removeAttribute("id");
         }
-
         // DBに接続
-        connect_db(word, writerArray);
+        connect_db(word, writer);
         
         // ページに一番最初の短歌を載せる
         loadContent();
@@ -218,7 +210,7 @@ $(function(){
         $(".c-input")[0].value = "";
 
         // テーブルに検索結果を表示
-        let insertHTML = makeInsertHTML(writerArray, word);
+        let insertHTML = makeInsertHTML(writer, word);
         $wordArea[0].insertAdjacentHTML('beforeend', insertHTML);
 
         // テーブルを表示
@@ -325,8 +317,8 @@ $(function(){
             thirdSentence = "天鵞絨を";
             forthSentence = "なづる心地か";
             fifthSentence = "春の暮れゆく";
-            writer = "芥川龍之介";
-            works = "芥川龍之介作品集";
+            writer = "芥川竜之介";
+            works = "芥川竜之介作品集";
         }
         contents.insertAdjacentHTML(
             'beforeend',
